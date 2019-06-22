@@ -4,7 +4,7 @@ Esse repositório contempla os códigos utilizados na disciplina COC752 da COPPE
 
 ## Trabalho
 
-![](escopo_trabalho/problema.png)
+![](imagens/problema.png)
 
 A disciplina de Métodos dos Elementos Finitos 1 possui um trabalho que deve ser desenvolvido ao longo do curso. Um exemplo é fornecido, mas o trabalho se divide em algumas partes:
 
@@ -15,6 +15,8 @@ O professor sugere que algumas malhas sejam desenvolvidas para a realização do
 Essa parte do trabalho não precisa ser realizada necessariamente em Fortran, existem precedentes em Python e usando o Excel. O importante é entender a lógica de como a malha é gerada para os quadriláteros e depois como é feita a divisão do quadrilátero em 2 elementos triangulares.
 
 Um exemplo de implementação em Fortran está disponível na pasta [gerador_malhas](gerador_malhas). Um exemplo em Python apenas para quadriláteros feito pelo ex-aluno Fabio Cesar Canesin está disponível [aqui](https://github.com/canesin/MEF/blob/master/malhas_trabalho/quadradounitario.py).
+
+Caso você nem saiba por onde começar, um tutorial sobre como configurar um ambiente de desenvolvimento está disponível [aqui](SETUP.md).
 
 ### Resultados no Paraview
 
