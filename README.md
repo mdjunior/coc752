@@ -1,4 +1,4 @@
-# Metodos dos Elementos Finitos 1
+# Métodos dos Elementos Finitos 1
 
 Esse repositório contempla os códigos utilizados na disciplina COC752 da COPPE/UFRJ que aborda o Método dos Elementos Finitos. A disponibilização do código aqui presente tem o objetivo de facilitar futuras consultas nessa área, assim como auxiliar futuros estudantes da disciplina.
 
