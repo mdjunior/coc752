@@ -25,7 +25,7 @@ c     Pede ao usuário o número de elementos e carrega o valor em nelem
 c     Pede ao usuário o tipo de material que será utilizado
       print *, 'Qual o ID do tipo de elemento utilizado?'
       print *, '1 - Triângulo no estado plano de tensão'
-      print *, '2 - Quadrilátero no estado plano de tensão'
+      print *, '3 - Quadrilátero no estado plano de tensão'
       read *, tipo_elem
 
 c     Se o elemento é triangular, são 3 nós, se quadrilátero são 4.
@@ -34,10 +34,14 @@ c     Se o elemento é triangular, são 3 nós, se quadrilátero são 4.
 c           Cálculo do número de elementos.
             nelem = ((elem_lat)**2 )*2
       end if
-      if (tipo_elem .eq. 2) then
+      if (tipo_elem .eq. 3) then
             nnos_elem = 4
 c           Cálculo do número de elementos.
             nelem = (elem_lat)**2
+      end if
+      if ((tipo_elem .ne. 1).and.(tipo_elem .ne. 3)) then
+            print *, 'Tipo de elemento não suportado pelo gerador!'
+            stop 1
       end if
 
 c     Se o elemento for triangular, o número de elementos nas laterais deverá ser par
@@ -49,7 +53,7 @@ c       exceto se for apenas 1 elemento na lateral (caso de um quadrilátero div
      .      (elem_lat .ne. 1)) then
             print *, 'Para elementos triangulares, o número de'
             print *, 'elementos deve ser par!'
-            stop 1
+            stop 2
       end if
 
 c     Cálculo do número de nós
@@ -64,10 +68,11 @@ c     Utilizar a unit=6 faz com que todos os prints a seguir vão direto para o 
       open(unit=unit,file=output_file,action="write",status="replace")
 
 c     ==================================================================
-c     1ª e 2ª linha
+c     1ª, 2ª e 3ª linha
 c     ==================================================================
-      print *, nnos, nelem, 1, nnos_elem
+      print *, nnos, nelem, 1, nnos_elem, 2, 2
       print *, 1, tipo_elem
+      print *, 1.0, 0.3
 
 c     ==================================================================
 c     Coordenadas de cada nó
