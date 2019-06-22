@@ -1,0 +1,26 @@
+{
+      "editor.rulers": [
+            5,
+            6,
+            72,
+            80
+      ],
+      "editor.formatOnSave": true,
+      "git.enableCommitSigning": true,
+      "editor.minimap.enabled": true,
+      "editor.detectIndentation": false,
+      "editor.tabSize": 6,
+      "editor.tabCompletion": "off",
+      "editor.insertSpaces": true,
+      "disasexpl.associations": {
+            "**/*.F": "${fileDirname}/${fileBasenameNoExtension}.S"
+      },
+      "emeraldwalk.runonsave": {
+            "commands": [
+                  {
+                        "match": ".*",
+                        "cmd": "gfortran -g -o ${file}.ASM -S ${file}.F"
+                  }
+            ]
+      }
+}
