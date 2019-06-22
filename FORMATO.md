@@ -8,20 +8,35 @@ O arquivo de entrada é dividido nas seguintes seções:
 
 Nessa seção, existem informações gerais sobre a malha. Número de nós e elementos, materiais e suas relações são descritas nessa seção. Essa seção possui, para o escopo desse trabalho, apenas 2 linhas.
 
-1º Linha: 
+1ª Linha:
 ```
-número de nós | número de elementos | número de materiais | número máximo de nós por elemento
+número de nós | número de elementos | número de materiais | número máximo de nós por elemento | graus de liberdade por nó | dimensão do problema
 ```
 
-2º Linha: 
+2ª Linha:
 ```
 ID do material | ID do tipo do elemento
 ```
 
+3ª Linha:
+```
+Elasticidade do material | Coeficiente de Poisson do material | Espessira | ...
+```
+
+Onde cada coluna representa uma constante física do material. As colunas significam, respectivamente:
+- Módulo da elasticidade/Módulo de Young
+- Coeficiente de Poisson
+- Espessura
+- Densidade
+- Condutividade térmica
+- ...
+
 Observações:
-* Repare que se mais de um material é utilizado, existiriam outras linhas semelhando a 2ª linha (mas não é caso desse trabalho).
-* O ID do tipo do material é o identificador que foi utilizado para esse material no próprio arquivo de dados (normalmente utilizamos 1 pois nesse trabalho estamos lidando com apenas um tipo de material).
-* O ID do tipo de elemento é o identificador interno usado no programa. Nos exemplos, o valor `1` é o triângulo do estado plano de tensão. Existe uma biblioteca com os tipos de elementos e as suas respectivas rotinas. Nesse trabalho específico, é necessário implementar o elemento quadrilátero (que teria o ID `2`).
+* (1ª linha) Repare que o número de materiais é fixo nesse problema, assim como o número de graus de liberdade por nó (2) e a dimensão do problema (2). 
+* (2ª linha) Repare que se mais de um material é utilizado, existiriam outras linhas semelhando a 2ª linha (mas não é caso desse trabalho).
+* (2ª linha)  O ID do tipo do material é o identificador que foi utilizado para esse material no próprio arquivo de dados (normalmente utilizamos 1 pois nesse trabalho estamos lidando com apenas um tipo de material).
+* (2ª linha)  O ID do tipo de elemento é o identificador interno usado no programa. Nos exemplos, o valor `1` é o triângulo do estado plano de tensão. Existe uma biblioteca com os tipos de elementos e as suas respectivas rotinas. Nesse trabalho específico, é necessário implementar o elemento quadrilátero (que teria o ID `3`).
+* (3ª linha) No problema, o coeficiente de Poisson é fixo em 0,30 (aço). O módulo da elasticidade é 1.0 (está na faixa dos polímeros), o que é bastante elástico.
 
 ## Informações dos nós
 
