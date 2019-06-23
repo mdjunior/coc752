@@ -144,8 +144,7 @@ c     Forças
 c     ==================================================================
 c     A força será dividida igualmente entre os elementos.
       forca = -1.0/elem_lat
-      primeiro_no = nnos-elem_lat
-      do 400 no = primeiro_no, nnos
+      do 400 no = 1, elem_lat+1
 
 c           Verificamos cada nó para saber se ele possui uma força aplicada.
 c             Lembrando que esse gerador de malha gera forças nos nós superiores.
@@ -153,9 +152,9 @@ c           O primeiro nó já é o primeiro da última linha (nnos-elem_lat).
 
 c           Sabemos que os nós da lateral direita recebem metade da força que os nós centrais.
 c             Não imprimimos o primeiro nó pois ele está preso.
-            if (no .eq. primeiro_no) then
+            if (no .eq. 1) then
 c                 nada... Esse nó está preso
-            else if (no .eq. nnos) then
+            else if (no .eq. (elem_lat+1)) then
                   print *, no, 0.0, forca/2
             else
                   print *, no, 0.0, forca
