@@ -61,7 +61,7 @@ número do elemento | nó 1 | nó 2 | nó 3 | nó 4 | material
 ```
 
 Observação:
-* Caso o elemento só possua 3 nós (triângulo), o valor do nó 4 deve ser 0 (zero).
+* Caso o elemento só possua 3 nós (triângulo), o nó 4 não deve ser impresso.
 * Repare que para o escopo do trabalho, todos os elementos são do mesmo material.
 
 ## Condições de contorno
