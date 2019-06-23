@@ -9,7 +9,7 @@ O formato de saída do programa MEF é estrutura nas seguintes partes:
 
 ## Coordenadas
 
-As coordenadas finais dos pontos, são listadas logo depois da entrada `coord N`, onde `N` é o número de linhas com as coordenadas.
+As coordenadas finais dos pontos, são listadas logo depois da entrada `coor N`, onde `N` é o número de linhas com as coordenadas.
 
 Exemplo:
 ```
@@ -22,7 +22,7 @@ coor   121
 ```
 
 Observações:
-* Repare que a palavra `coord` sempre virá seguida do número de coordenadas.
+* Repare que a palavra `coor` sempre virá seguida do número de coordenadas.
 * Cada linha de coordenada possui um inteiro que numera a linha e 3 reais que são os valores nas coordenadas x, y e z.
 
 ## Elementos
