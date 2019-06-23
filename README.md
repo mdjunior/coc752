@@ -10,7 +10,7 @@ A disciplina de Métodos dos Elementos Finitos 1 possui um trabalho que deve ser
 
 ### Geração de malhas
 
-O professor sugere que algumas malhas sejam desenvolvidas para a realização do trabalho. Essas malhas podem variar de 16x16 até 512x512 elementos. Os elementos incluem triângulos e quadriláteros. Para entender o formato de entrada do programa, verifique [clique aqui](FORMATO.md).
+O professor sugere que algumas malhas sejam desenvolvidas para a realização do trabalho. Essas malhas podem variar de 16x16 até 512x512 elementos. Os elementos incluem triângulos e quadriláteros. Para entender o formato de entrada do programa, verifique [aqui](FORMATO_ENTRADA.md).
 
 Essa parte do trabalho não precisa ser realizada necessariamente em Fortran, existem precedentes em Python e usando o Excel. O importante é entender a lógica de como a malha é gerada para os quadriláteros e depois como é feita a divisão do quadrilátero em 2 elementos triangulares.
 
@@ -21,6 +21,7 @@ Caso você nem saiba por onde começar, um tutorial sobre como configurar um amb
 ### Resultados no Paraview
 
 O programa fornecido não suporta o visualizador Paraview. A segunda parte consiste em adaptar o programa para que sua saída seja convertida no formato compatível com o visualizador. Uma alternativa é fazer um conversor entre os formatos.
+Para entender melhor o formato de saída do programa do trabalho, verifique [aqui](FORMATO_SAIDA.md). Para entender como é estruturado o formato VTK, veja a documentação geral disponível [aqui](http://computingforscientists.info/ParaView).
 
 ### Inclusão do elemento quadrilátero bilinear
 
