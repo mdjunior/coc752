@@ -1,7 +1,7 @@
       program gerador
       implicit none
       integer elem_lat,nnos,nelem,elem,nnos_elem,tipo_elem
-      integer divisao, no, no_relativo, degrau
+      integer divisao, no, no_relativo, degrau, nquadrilateros
       character*80 output_file
       real tamanho_elem, x, y
       integer linha, a,b,c,d
@@ -19,7 +19,8 @@ c     ==================================================================
 c     ==================================================================
 
 c     Pede ao usuário o número de elementos e carrega o valor em nelem
-      print *, 'Número de elementos nas laterais (ex: 16 para 16x16):'
+      print *, 'Número de elementos nas laterais (ex: 16 para 16x16).'
+      print *, 'Se for usar o elemento triagular, coloque o metade:'
       read *, elem_lat
 
 c     Pede ao usuário o tipo de material que será utilizado
@@ -29,31 +30,20 @@ c     Pede ao usuário o tipo de material que será utilizado
       read *, tipo_elem
 
 c     Se o elemento é triangular, são 3 nós, se quadrilátero são 4.
+      nquadrilateros = (elem_lat)**2
       if (tipo_elem .eq. 1) then
             nnos_elem = 3
 c           Cálculo do número de elementos.
-            nelem = ((elem_lat)**2 )*2
+            nelem = nquadrilateros*2
       end if
       if (tipo_elem .eq. 3) then
             nnos_elem = 4
 c           Cálculo do número de elementos.
-            nelem = (elem_lat)**2
+            nelem = nquadrilateros
       end if
       if ((tipo_elem .ne. 1).and.(tipo_elem .ne. 3)) then
             print *, 'Tipo de elemento não suportado pelo gerador!'
             stop 1
-      end if
-
-c     Se o elemento for triangular, o número de elementos nas laterais deverá ser par
-c       exceto se for apenas 1 elemento na lateral (caso de um quadrilátero dividido ao meio).
-      divisao = (elem_lat / 2) * 2
-      if (
-     .      (tipo_elem .eq. 1).and.
-     .      (divisao .lt. elem_lat).and.
-     .      (elem_lat .ne. 1)) then
-            print *, 'Para elementos triangulares, o número de'
-            print *, 'elementos deve ser par!'
-            stop 2
       end if
 
 c     Cálculo do número de nós
@@ -97,18 +87,21 @@ c           Repare que no último nó de cada linha, a divisão muda de valor.
 c             Sabemos disso pois o mod (no_relativo) fica igual a zero.
             degrau = no / (elem_lat + 1)
             if (no_relativo .eq. 0) then
-                  y = tamanho_elem * (degrau - 1)
+c                 A logica de tamanho_elem * degrau é aumentar conforme os elementos
+c                   aumentam. Como queremos que o primeiro elemento esteja no alto,
+c                   fazemos (1 - valor).
+                  y = 1.0 - (tamanho_elem * (degrau - 1.0))
             else
-                  y = tamanho_elem * degrau
+                  y = 1.0 - (tamanho_elem * degrau)
             end if
 
             print *, no, x, y, 0.0
 100   continue
 
 c     ==================================================================
-c     Nós de cada elemento
+c     Nós de cada elemento (usamos os quadriláteros)
 c     ==================================================================
-      do 200 elem = 1, nelem
+      do 200 elem = 1, nquadrilateros
 
 c           A divisão é periódica com período elem_lat, logo precisa começar de (elem - 1).
             linha = (elem - 1) / elem_lat
@@ -123,12 +116,11 @@ c           Nós para os elementos quadriláteros.
             end if
 
 c           Nós para elementos triangulares (repare que é baseado nos pontos do quadrilátero).
+c             A ordem dos nós em cada elemento é muito importante. Ela precisa estar no sentido
+c             anti-horário. Caso não esteja, o determinante do elemento vai ficar nulo.
             if (nnos_elem .eq. 3) then
-c                 Vamos imprimir 2 elementos por vez, logo vamos imprimir somente os impares.
-                  if (mod(elem, 2) .eq. 1) then
-                        print *, elem  , a, b, c, 0, 1
-                        print *, elem+1, b, c, d, 0, 1
-                  end if
+                  print *, 2*elem -1 , a, c, d, 1
+                  print *, 2*elem    , a, d, b, 1
             end if
 200   continue
 
@@ -154,13 +146,16 @@ c     A força será dividida igualmente entre os elementos.
       forca = -1.0/elem_lat
       primeiro_no = nnos-elem_lat
       do 400 no = primeiro_no, nnos
+
 c           Verificamos cada nó para saber se ele possui uma força aplicada.
 c             Lembrando que esse gerador de malha gera forças nos nós superiores.
 c           O primeiro nó já é o primeiro da última linha (nnos-elem_lat).
 
-c           Sabemos que os nós da lateral direita e esqueda recebem metade da força que os nós centrais.
-            
-            if ((no .eq. primeiro_no).or.(no .eq. nnos)) then
+c           Sabemos que os nós da lateral direita recebem metade da força que os nós centrais.
+c             Não imprimimos o primeiro nó pois ele está preso.
+            if (no .eq. primeiro_no) then
+c                 nada... Esse nó está preso
+            else if (no .eq. nnos) then
                   print *, no, 0.0, forca/2
             else
                   print *, no, 0.0, forca
