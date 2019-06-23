@@ -1,6 +1,6 @@
       program mef2vtk
       implicit none
-      integer input_unit, output_unit, number
+      integer input_unit, output_unit, number, nos_elemento
       character*80 input_file, output_file, buffer, section
       integer coor, no, no_in
       integer elem, cell, cell_in, elem_points
@@ -25,6 +25,9 @@ c     Pede ao usuário o nome do arquivo para salvar a malha
       read *, input_file
       input_unit = 99
       open(unit=input_unit,file=input_file,action="read")
+
+      print *, 'Quantos nós tem cada elemento? (ex: 3)'
+      read *, nos_elemento
 
 c     Processando as coordenadas
 c     ==================================================================
@@ -52,8 +55,18 @@ c     ==================================================================
 c     elem_points acumula o número total de pontos
       elem_points = 0
       do 200 cell = 1, elem
-            read(input_unit,*) cell_in, elements(cell,1), 
-     .            elements(cell,2), elements(cell,3), elements(cell,4)
+            if (nos_elemento .eq. 3) then
+                  read(input_unit,*) cell_in, elements(cell,1), 
+     .                  elements(cell,2), elements(cell,3), 
+     .                  elements(cell,4)
+            else if (nos_elemento .eq. 4) then
+                  read(input_unit,*) cell_in, elements(cell,1), 
+     .                  elements(cell,2), elements(cell,3), 
+     .                  elements(cell,4), elements(cell,5)
+            else
+                  print *,'Número de nós por elemento não suportado!'
+                  stop 3
+            end if
             elem_points = elem_points + elements(cell,1)
 200   continue
       elem_points = elem_points + elem
@@ -65,7 +78,7 @@ c     ==================================================================
             fn_dimensoes = number
       else
             print *, 'Forças nodais não encontradas!'
-            stop 3
+            stop 4
       end if
       do 500 no = 1, coor
             read(input_unit,*) no_in, forcas_nodais(no,1), 
@@ -77,7 +90,7 @@ c     ==================================================================
       read(input_unit,*) section
       if (section .ne. 'nvec') then
             print *, 'Deslocamentos não encontradas!'
-            stop 4
+            stop 5
       end if
       do 600 no = 1, coor
             read(input_unit,*) no_in, deslocamentos(no,1), 
@@ -118,16 +131,34 @@ c           A linha a seguir, gera as coordenadas iniciais (da malha)
 c     Células/elementos
       write (output_unit,'(a,i10,i10)') 'CELLS', elem, elem_points
       do 1300 cell = 1, elem
-            write (output_unit,'(i10,i10,i10,i10)') elements(cell,1), 
-     .            elements(cell,2)-1, elements(cell,3)-1,
-     .            elements(cell,4)-1
+            if (nos_elemento .eq. 3) then
+                  write (output_unit,'(i10,i10,i10,i10)') 
+     .                  elements(cell,1),   elements(cell,2)-1,
+     .                  elements(cell,3)-1, elements(cell,4)-1
+            else if (nos_elemento .eq. 4) then
+                  write (output_unit,'(i10,i10,i10,i10,i10)') 
+     .                  elements(cell,1),   elements(cell,2)-1,
+     .                  elements(cell,3)-1, elements(cell,4)-1,
+     .                  elements(cell,5)-1
+            else
+                  print *,'Número de nós por elemento não suportado!'
+                  stop 3
+            end if
+
 1300  continue
       write (output_unit,'(a)') ''
 
 c     Gerando tipos de células para arquivo de saida (os elementos começam de zero)
       write (output_unit,'(a,i10)') 'CELL_TYPES', elem
       do 1400 cell = 1, elem
-            write (output_unit,'(i10)') 5
+            if (elements(cell,1) .eq. 3) then
+                  write (output_unit,'(i10)') 5
+            else if (elements(cell,1) .eq. 4) then
+                  write (output_unit,'(i10)') 9
+            else
+                  print *,'Número de nós por elemento não suportado!'
+                  stop 3
+            end if
 1400   continue
       write (output_unit,'(a)') ''
 
