@@ -112,7 +112,7 @@ c           A divisão é periódica com período elem_lat, logo precisa começa
 
 c           Nós para os elementos quadriláteros.
             if (nnos_elem .eq. 4) then
-                  print *, elem, a, b, c, d, 1
+                  print *, elem, a, c, d, b, 1
             end if
 
 c           Nós para elementos triangulares (repare que é baseado nos pontos do quadrilátero).
