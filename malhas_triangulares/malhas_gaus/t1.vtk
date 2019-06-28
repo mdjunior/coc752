@@ -1,0 +1,25 @@
+# vtk DataFile Version 3.0
+Dataset convertido do arquivo t1.out                                                                          
+ASCII
+
+DATASET UNSTRUCTURED_GRID
+POINTS         4 float
+    0.00000E+00    0.10000E+01    0.00000E+00
+    0.10000E+01    0.10000E+01    0.00000E+00
+    0.00000E+00    0.00000E+00    0.00000E+00
+    0.10000E+01    0.00000E+00    0.00000E+00
+
+CELLS         2         8
+         3         0         2         3
+         3         0         3         1
+
+CELL_TYPES         2
+         5
+         5
+
+POINT_DATA          4
+VECTORS deslocamento double
+   0.00000E+000   0.00000E+000   0.00000E+000
+   0.62234E+000  -0.21160E+001   0.00000E+000
+   0.00000E+000   0.00000E+000   0.00000E+000
+  -0.33191E+000  -0.14383E+001   0.00000E+000

@@ -21,6 +21,7 @@ Caso você nem saiba por onde começar, um tutorial sobre como configurar um amb
 ### Resultados no Paraview
 
 O programa fornecido não suporta o visualizador Paraview. A segunda parte consiste em adaptar o programa para que sua saída seja convertida no formato compatível com o visualizador. Uma alternativa é fazer um conversor entre os formatos.
+
 Para entender melhor o formato de saída do programa do trabalho, verifique [aqui](FORMATO_SAIDA.md). Para entender como é estruturado o formato VTK, veja a documentação geral disponível [aqui](http://computingforscientists.info/ParaView).
 
 ### Inclusão do elemento quadrilátero bilinear
